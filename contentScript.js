@@ -1,6 +1,6 @@
 // Конфигурация
 const KEYWORD = 'ключи';
-const DEBOUNCE_TIME = 2000; // Защита от повторного срабатывания (2 секунды)
+const DEBOUNCE_TIME = 3500; // кулдаун 3,5 секунды
 
 // Глобальные переменные
 let audioContext = null;
@@ -10,7 +10,7 @@ let isAudioReady = false;
 let audioInitialized = false;
 let isVideoPage = false;
 
-console.log('🔑 Keys And Subscriptions расширение загружено!');
+console.log('🔑 Ключи и подписки загружены!');
 
 // Проверяем, находимся ли мы на странице просмотра видео
 function checkIfVideoPage() {
