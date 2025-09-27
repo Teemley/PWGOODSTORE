@@ -52,25 +52,32 @@ function init() {
 function loadAudioFile() {
     console.log('🔊 Загружаем аудиофайл...');
     
-    const soundUrl = chrome.runtime.getURL('keys.mp3');
+    const soundUrl = browser.runtime.getURL('keys.mp3');
+    // для остальных const soundUrl = chrome.runtime.getURL('keys.mp3');
+    // для firefox (уже) const soundUrl = browser.runtime.getURL('keys.mp3');
+    
     fetch(soundUrl)
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return response.arrayBuffer();
         })
         .then(arrayBuffer => {
-            console.log('✅ Аудиофайл загружен, готовим буфер...');
+            console.log('✅ Аудиофайл загружен');
             soundBuffer = arrayBuffer;
             isAudioReady = true;
         })
-        .catch(error => {
-            console.error('❌ Ошибка загрузки аудио:', error);
-        });
+        .catch(error => console.error('❌ Ошибка загрузки аудио:', error));
 }
 
-// Инициализация AudioContext
+function getResourceURL(path) {
+    if (typeof chrome !== 'undefined' && chrome.runtime) {
+        return chrome.runtime.getURL(path);
+    } else if (typeof browser !== 'undefined' && browser.runtime) {
+        return browser.runtime.getURL(path);
+    }
+    return path;
+}
+
 function initAudioContext() {
     if (audioInitialized) return;
     

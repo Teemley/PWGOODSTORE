@@ -1,25 +1,27 @@
 {
-  "manifest_version": 3,
-  "name": "Ключи и Подписки",
+  "manifest_version": 2,
+  "name": "Ключи и подписки",
   "version": "1.0",
   "description": "КЛЮЧИ И ПОДПИСКИ после каждого слова ключи в тексте",
+  "author": "Teemley",
+  
   "icons": {
     "128": "icon128.png"
   },
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["https://*.youtube.com/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
+
   "content_scripts": [
     {
-      "matches": ["https://*.youtube.com/*"],
+      "matches": ["https://www.youtube.com/watch?v=*"],
       "js": ["contentScript.js"],
       "run_at": "document_end"
     }
   ],
-  "web_accessible_resources": [{
-    "resources": ["keys.mp3"],
-    "matches": ["https://*.youtube.com/*"]
-  }]
+
+  "web_accessible_resources": [
+    "keys.mp3"
+  ],
+
+  "permissions": [
+    "https://www.youtube.com/*"
+  ]
 }
